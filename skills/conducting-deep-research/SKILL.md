@@ -75,29 +75,58 @@ After completing Phase 2 (Planning & Approval), proceed based on the research mo
 
 ### For Each Source (Sequential Loop)
 
-#### Step 1: Discover and Fetch Next Source
+#### Step 1: Identify Next Research Priority
 
-Based on current synthesis state:
+Based on current synthesis state, determine:
 
-- Identify the highest-priority gap or angle to explore
-- Use WebSearch to find relevant source
-- Use WebFetch to retrieve the source content
+- The highest-priority gap or angle to explore
+- Specific search query or URL to investigate
+- Which research angle from the plan this addresses
 - Prioritize sources that:
   - Fill identified gaps in current synthesis
   - Validate or challenge emerging patterns
   - Provide missing perspectives from research angles
 
-#### Step 2: Create Source Summary
+#### Step 2: Spawn Research-Analyst Subagent
 
-- Use template from `./templates/article-summary.md`
-- Analyze the fetched source thoroughly
-- Save to `[YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/summaries/source-title-slug-summary.md`
+Use the Task tool to spawn a research-analyst subagent:
 
-#### Step 3: Update Synthesis Immediately (KEEP CONCISE)
+```
+Task tool parameters:
+- subagent_type: "general-purpose"
+- description: "Research [brief topic description]"
+- prompt: "You are executing the researcher subagent role defined in /agents/research-analyst.md.
+
+Your assignment:
+- Source topic: [specific topic or URL to research]
+- Research focus: [specific research angle from plan]
+- Research purpose: [overall research goal from Phase 1]
+- Working directory: [YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]
+
+Follow the instructions in /agents/research-analyst.md to:
+1. Find and fetch the source (use WebSearch then WebFetch, or direct WebFetch if URL provided)
+2. Conduct deep analysis
+3. Create comprehensive summary using analyzing-source/templates/article-summary.md
+4. Save to: [YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/summaries/[descriptive-filename].md
+
+Provide a brief confirmation when complete with the key insights discovered."
+```
+
+**Wait for the subagent to complete.**
+
+#### Step 3: Review Source Summary
+
+Once the subagent completes:
+
+1. Note the filename where the summary was saved
+2. Read the summary file to understand the findings
+3. Note key insights, themes, and gaps identified
+
+#### Step 4: Update Synthesis Immediately (KEEP CONCISE)
 
 **CRITICAL: The synthesis document must remain concise and well-structured throughout. Add only essential insights.**
 
-Update `[YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/synthesis.md` with findings from this source:
+Update `[YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/synthesis.md` with findings from the summary:
 
 - **Add 1-3 key insights** to relevant theme sections (not everything from the source)
 - **Update patterns/contradictions** only if source significantly confirms or challenges findings
@@ -113,7 +142,7 @@ Update `[YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/synthesis.md` with findings fr
 - Remove or consolidate redundant information as you add new sources
 - The synthesis should be increasingly refined, not increasingly bloated
 
-#### Step 4: Evaluate & Adapt
+#### Step 5: Evaluate & Adapt
 
 After updating synthesis, explicitly evaluate:
 
@@ -136,7 +165,7 @@ After updating synthesis, explicitly evaluate:
 - Adjust search strategy based on what's working
 - Consider whether we're approaching target source count
 
-#### Step 5: Continue or Conclude
+#### Step 6: Continue or Conclude
 
 - If more sources needed and target count not reached: return to Step 1
 - If sufficient coverage achieved: proceed to Phase 4 (Packaging & Delivery)
@@ -226,7 +255,7 @@ Your assignment:
 Follow the instructions in /agents/research-analyst.md to:
 1. Find and fetch the source (use WebSearch then WebFetch, or direct WebFetch if URL provided)
 2. Conduct deep analysis
-3. Create comprehensive summary using analyzing-source/templates/article-summary-parallel.md
+3. Create comprehensive summary using analyzing-source/templates/article-summary.md
 4. Save to: [YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/summaries/[descriptive-filename].md
 
 Provide a brief confirmation when complete with the key insights discovered."

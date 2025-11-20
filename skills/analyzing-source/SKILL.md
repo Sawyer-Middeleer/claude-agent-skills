@@ -7,13 +7,6 @@ description: Conducts in-depth analysis of a specific source or topic, producing
 
 This skill guides you through analyzing a single source in depth and creating a comprehensive summary suitable for research synthesis.
 
-## When to Use This Skill
-
-- You're part of a parallel research effort analyzing multiple sources simultaneously
-- You need to create a detailed, self-contained summary of a specific source
-- The summary will be synthesized with other findings by a research coordinator
-- You want thorough documentation that captures all key insights without re-reading the original
-
 ## Process
 
 Follow these steps to analyze a source and create a comprehensive summary:
@@ -21,15 +14,18 @@ Follow these steps to analyze a source and create a comprehensive summary:
 ### Step 1: Source Discovery and Retrieval
 
 **If given a URL:**
+
 - Fetch it directly using WebFetch
 - Verify the content is accessible and relevant
 
 **If given a topic or search query:**
+
 - Use WebSearch to find the best source on the topic
 - Prioritize authoritative, detailed sources
 - Fetch the most relevant result using WebFetch
 
 **If source is inaccessible or low-quality:**
+
 - Try alternative sources
 - Be persistent in finding substantive information
 - Note any access issues in your summary
@@ -49,7 +45,9 @@ Conduct thorough analysis focusing on:
 
 ### Step 3: Create Comprehensive Summary
 
-Use the template from `./templates/article-summary-parallel.md` to create your summary.
+Use the template from `./templates/article-summary.md` to create your summary.
+
+**VERY IMPORTANT:** Your summary must be concise yet thorough, which means being extreme information-dense and leveraging key data as much as possible.
 
 **Template structure includes:**
 - Executive summary
@@ -57,29 +55,27 @@ Use the template from `./templates/article-summary-parallel.md` to create your s
 - Main arguments/findings with evidence
 - Methodology/approach
 - Specific examples & case studies
-- Notable quotes (include many!)
-- Evidence quality assessment
+- Notable quotes
 - Critical evaluation
 - Relevance to research focus
-- Theme connections
 - Practical implications
-- Integration notes
 
 **Key principles:**
-- Fill out ALL sections thoroughly
+
 - Include specific quotes and examples, not just paraphrasing
 - Provide analytical insights about significance and relevance
 - Make clear connections to the research focus provided
-- Assess source quality and reliability
 - Be detailed enough that someone can understand the source without reading the original
 
 ### Step 4: Save Summary File
 
 **Create filename:**
+
 - Use a descriptive slug based on the source
 - Example: `kubernetes-scaling-patterns.md`, `netflix-chaos-engineering.md`
 
 **Save location:**
+
 - Save to: `{working_directory}/summaries/{filename}.md`
 - Use the complete template structure
 - Ensure all sections are filled out
