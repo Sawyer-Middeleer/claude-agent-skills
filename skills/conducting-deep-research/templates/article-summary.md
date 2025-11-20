@@ -2,11 +2,12 @@
 created: YYYY-MM-DD
 source_url: [URL or citation]
 source_type: [academic/industry/community/expert/case-study]
-original_file: "[[YYYY-MM-DD_source-title-slug]]"
 tags: [research-topic, relevant-tags]
 ---
 
 # [Source Title]
+
+**Source:** [source_url]
 
 ## Citation
 
