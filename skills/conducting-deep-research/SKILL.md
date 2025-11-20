@@ -80,16 +80,27 @@ After completing Phase 2 (Planning & Approval), proceed based on the research mo
 Based on current synthesis state, determine:
 
 - The highest-priority gap or angle to explore
-- Specific search query or URL to investigate
+- Specific search query to find a relevant source
 - Which research angle from the plan this addresses
 - Prioritize sources that:
   - Fill identified gaps in current synthesis
   - Validate or challenge emerging patterns
   - Provide missing perspectives from research angles
 
-#### Step 2: Spawn Research-Analyst Subagent
+#### Step 2: Find and Validate URL
 
-Use the Task tool to spawn a research-analyst subagent:
+**CRITICAL: You must identify a specific URL before spawning the researcher subagent.**
+
+1. Use WebSearch to find a relevant source for the identified research priority
+2. Identify a specific URL from the search results
+3. Use WebFetch with a simple prompt (e.g., "Extract the title and first paragraph") to verify the URL is accessible
+4. If the URL is not accessible, find an alternative URL and validate it
+
+**Do not proceed to Step 3 until you have a verified, accessible URL.**
+
+#### Step 3: Spawn Research-Analyst Subagent
+
+Use the Task tool to spawn a research-analyst subagent with the validated URL:
 
 ```
 Task tool parameters:
@@ -98,13 +109,13 @@ Task tool parameters:
 - prompt: "You are executing the researcher subagent role defined in /agents/research-analyst.md.
 
 Your assignment:
-- Source topic: [specific topic or URL to research]
+- Source URL: [VALIDATED_URL]
 - Research focus: [specific research angle from plan]
 - Research purpose: [overall research goal from Phase 1]
 - Working directory: [YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]
 
 Follow the instructions in /agents/research-analyst.md to:
-1. Find and fetch the source (use WebSearch then WebFetch, or direct WebFetch if URL provided)
+1. Fetch the source using WebFetch on the provided URL
 2. Conduct deep analysis
 3. Create comprehensive summary using analyzing-source/templates/article-summary.md
 4. Save to: [YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/summaries/[descriptive-filename].md
@@ -114,7 +125,7 @@ Provide a brief confirmation when complete with the key insights discovered."
 
 **Wait for the subagent to complete.**
 
-#### Step 3: Review Source Summary
+#### Step 4: Review Source Summary
 
 Once the subagent completes:
 
@@ -122,7 +133,7 @@ Once the subagent completes:
 2. Read the summary file to understand the findings
 3. Note key insights, themes, and gaps identified
 
-#### Step 4: Update Synthesis Immediately (KEEP CONCISE)
+#### Step 5: Update Synthesis Immediately (KEEP CONCISE)
 
 **CRITICAL: The synthesis document must remain concise and well-structured throughout. Add only essential insights.**
 
@@ -142,7 +153,7 @@ Update `[YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/synthesis.md` with findings fr
 - Remove or consolidate redundant information as you add new sources
 - The synthesis should be increasingly refined, not increasingly bloated
 
-#### Step 5: Evaluate & Adapt
+#### Step 6: Evaluate & Adapt
 
 After updating synthesis, explicitly evaluate:
 
@@ -165,7 +176,7 @@ After updating synthesis, explicitly evaluate:
 - Adjust search strategy based on what's working
 - Consider whether we're approaching target source count
 
-#### Step 6: Continue or Conclude
+#### Step 7: Continue or Conclude
 
 - If more sources needed and target count not reached: return to Step 1
 - If sufficient coverage achieved: proceed to Phase 4 (Packaging & Delivery)
@@ -220,25 +231,42 @@ In parallel mode, research is conducted by spawning multiple researcher subagent
 2. Save to: `[YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/synthesis.md`
 3. Create summaries directory: `[YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/summaries/`
 
-### Step 2: Extract Research Topics
+### Step 2: Identify Research Topics
 
-From the approved research plan, identify specific source topics or search queries to research. Aim for target source count from Phase 1 (6-8 for Light, 9-14 for Medium, 15+ for Deep).
+From the approved research plan, identify specific search queries to research. Aim for target source count from Phase 1 (6-8 for Light, 9-14 for Medium, 15+ for Deep).
 
-**For each research angle in the plan**, identify 2-4 specific sources/topics to investigate:
+**For each research angle in the plan**, identify 2-4 specific search queries to investigate:
 
 Example:
+
 - Research Angle: "Performance patterns in distributed systems"
-  - Topic 1: "Kubernetes horizontal pod autoscaling best practices"
-  - Topic 2: "Netflix microservices scaling strategies"
-  - Topic 3: "Load balancing algorithms for distributed systems"
+  - Query 1: "Kubernetes horizontal pod autoscaling best practices"
+  - Query 2: "Netflix microservices scaling strategies"
+  - Query 3: "Load balancing algorithms for distributed systems"
 
-Create a list of N source topics to research (where N = target source count).
+Create a list of N search queries to research (where N = target source count).
 
-### Step 3: Spawn Researcher Subagents in Parallel
+### Step 3: Find and Validate URLs
+
+**CRITICAL: You must identify and validate specific URLs before spawning any researcher subagents.**
+
+For each search query from Step 2:
+
+1. Use WebSearch to find relevant sources
+2. Identify a specific URL from the search results that best addresses the query
+3. Use WebFetch with a simple prompt (e.g., "Extract the title and first paragraph") to verify each URL is accessible
+4. If a URL is not accessible, find an alternative URL for that query and validate it
+5. Compile a list of N validated URLs (one per query)
+
+**Do not proceed to Step 4 until you have N validated, accessible URLs.**
+
+Document the validated URLs clearly, noting which research angle and query each URL addresses.
+
+### Step 4: Spawn Researcher Subagents in Parallel
 
 **CRITICAL: Use a single message with multiple Task tool calls to execute all researchers in parallel.**
 
-For each source topic, spawn a researcher subagent using the Task tool:
+For each validated URL from Step 3, spawn a researcher subagent using the Task tool:
 
 ```
 Task tool parameters for each researcher:
@@ -247,13 +275,13 @@ Task tool parameters for each researcher:
 - prompt: "You are executing the researcher subagent role defined in /agents/research-analyst.md.
 
 Your assignment:
-- Source topic: [specific topic or URL]
+- Source URL: [VALIDATED_URL]
 - Research focus: [specific research angle from plan]
 - Research purpose: [overall research goal from Phase 1]
 - Working directory: [YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]
 
 Follow the instructions in /agents/research-analyst.md to:
-1. Find and fetch the source (use WebSearch then WebFetch, or direct WebFetch if URL provided)
+1. Fetch the source using WebFetch on the provided URL
 2. Conduct deep analysis
 3. Create comprehensive summary using analyzing-source/templates/article-summary.md
 4. Save to: [YOUR WORKING DIRECTORY]/[RESEARCH TOPIC]/summaries/[descriptive-filename].md
@@ -263,11 +291,11 @@ Provide a brief confirmation when complete with the key insights discovered."
 
 **Execute all N researchers in parallel by including N Task tool calls in a single message.**
 
-### Step 4: Wait for Completion
+### Step 5: Wait for Completion
 
 All researcher subagents will execute in parallel. Wait for all to complete before proceeding.
 
-### Step 5: Review Researcher Outputs
+### Step 6: Review Researcher Outputs
 
 Once all researchers have completed:
 
@@ -275,7 +303,7 @@ Once all researchers have completed:
 2. Read each source summary file to understand what each researcher discovered
 3. Note the range of perspectives, key themes, contradictions, and gaps
 
-### Step 6: Build Comprehensive Synthesis
+### Step 7: Build Comprehensive Synthesis
 
 Now synthesize all findings into the `synthesis.md` file:
 
@@ -317,7 +345,7 @@ Now synthesize all findings into the `synthesis.md` file:
 - Distinguish between well-supported findings and tentative conclusions
 - Note source quality in your assessments (per the "Evidence Quality Assessment" sections in summaries)
 
-### Step 7: Quality Review
+### Step 8: Quality Review
 
 Verify synthesis quality:
 
@@ -331,7 +359,7 @@ Verify synthesis quality:
 - [ ] All internal links work
 - [ ] YAML frontmatter is complete
 
-### Step 8: Deliver Results
+### Step 9: Deliver Results
 
 **Inform user:**
 - Location of synthesis and all source summaries
