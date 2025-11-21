@@ -5,6 +5,7 @@ Create an ASCII architecture diagram in Phase 2 to visualize the skill structure
 ## Purpose
 
 Show the complete skill architecture:
+
 - Flow from user request to deliverable output
 - All phases with their key components
 - Decision points and branching logic
@@ -55,17 +56,17 @@ All right-side borders must align vertically. Test in monospace terminal before 
                              ▼
 ╔═══════════════════════════════════════════════════════════╗
 ║ CORE PRINCIPLES                                           ║
-║ ┌─────────┐  ┌─────────┐  ┌─────────┐                   ║
-║ │Principle│  │Principle│  │Principle│                   ║
-║ └─────────┘  └─────────┘  └─────────┘                   ║
+║ ┌─────────┐  ┌─────────┐  ┌─────────┐                     ║
+║ │Principle│  │Principle│  │Principle│                     ║
+║ └─────────┘  └─────────┘  └─────────┘                     ║
 ╚═══════════════════════════════════════════════════════════╝
                              │
                              ▼
 ╔═══════════════════════════════════════════════════════════╗
-║ PHASE 1: [NAME]                                          ║
-║ ┌─────────────┐  ┌─────────────┐                        ║
-║ │ Component 1 │  │ Component 2 │                        ║
-║ └─────────────┘  └─────────────┘                        ║
+║ PHASE 1: [NAME]                                           ║
+║ ┌─────────────┐  ┌─────────────┐                          ║
+║ │ Component 1 │  │ Component 2 │                          ║
+║ └─────────────┘  └─────────────┘                          ║
 ╚═══════════════════════════════════════════════════════════╝
                              │
                              ▼
@@ -73,28 +74,33 @@ All right-side borders must align vertically. Test in monospace terminal before 
 
 ╔═══════════════════════════════════════════════════════════╗
 ║ OUTPUT DELIVERABLE                                        ║
-║ ┌───────────────────────────────────────────────────┐    ║
-║ │ skill-name/                                       │    ║
-║ │ ├── SKILL.md                                      │    ║
-║ │ └── reference/ (optional)                         │    ║
-║ └───────────────────────────────────────────────────┘    ║
+║ ┌───────────────────────────────────────────────────┐     ║
+║ │ skill-name/                                       │     ║
+║ │ ├── SKILL.md                                      │     ║
+║ │ └── reference/ (optional)                         │     ║
+║ └───────────────────────────────────────────────────┘     ║
 ╚═══════════════════════════════════════════════════════════╝
 ```
 
 ## Content Guidelines
 
-**Emphasize:**
-- User interaction points (AskUserQuestion, approval gates)
+### Emphasize
+
+- User interaction points
 - Decision points with clear conditions
 - Validation and quality checks
+- Flow of data
+- Skill, subagent, tool, etc dependencies
 - Tool usage (Read, Write, Edit, etc.)
 
-**Keep concise:**
+### Keep concise
+
 - High-level components only, not every detail
 - Show flow and structure, not implementation
 - Fit diagram in terminal window
 
-**Adapt by skill type:**
+### Adapt by skill type
+
 - Workflow: Sequential phases, validation checkpoints
 - Analysis: Input validation, feedback loops, quality checks
 - Content generation: Templates, parameters, formatting
