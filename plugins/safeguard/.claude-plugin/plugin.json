@@ -1,0 +1,11 @@
+{
+  "name": "safeguard",
+  "displayName": "Safeguard",
+  "version": "1.0.0",
+  "description": "Seatbelts for knowledge work: guided permission hardening with safe defaults, plus a read-only audit of everything Claude can currently see and do.",
+  "author": { "name": "Sawyer Middeleer", "email": "saw.midd@gmail.com" },
+  "license": "MIT",
+  "repository": "https://github.com/Sawyer-Middeleer/dot-claude",
+  "homepage": "https://github.com/Sawyer-Middeleer/dot-claude",
+  "keywords": ["permissions", "security", "settings", "privacy"]
+}

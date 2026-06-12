@@ -4,20 +4,56 @@
     "name": "Sawyer Middeleer",
     "email": "saw.midd@gmail.com"
   },
-  "description": "An actually useful collection of extensions for Claude Agent (Claude Code)",
-  "version": "2.0.0",
+  "description": "Actually useful Claude Code plugins for knowledge work — skills that compound, guardrails that hold, and a second brain Claude maintains for you.",
+  "version": "3.0.0",
   "plugins": [
     {
-      "name": "dot-claude",
-      "description": "An actually useful collection of extensions for Claude Agent (Claude Code) - focused on non-programming tasks",
-      "version": "2.0.0",
-      "author": {
-        "name": "Sawyer Middeleer",
-        "email": "saw.midd@gmail.com"
-      },
-      "repository": "github.com/Sawyer-Middeleer/dot-claude",
-      "tags": ["research", "analysis", "skills", "agents", "productivity"],
-      "source": "./plugins/dot-claude"
+      "name": "compound",
+      "displayName": "Compound",
+      "description": "Claude that gets better every week: corrects its own instructions after mistakes, turns twice-done tasks into reusable skills, and authors new skills to spec.",
+      "author": { "name": "Sawyer Middeleer", "email": "saw.midd@gmail.com" },
+      "license": "MIT",
+      "repository": "https://github.com/Sawyer-Middeleer/dot-claude",
+      "homepage": "https://github.com/Sawyer-Middeleer/dot-claude",
+      "category": "productivity",
+      "tags": ["skills", "self-improvement", "automation", "meta"],
+      "source": "./plugins/compound"
+    },
+    {
+      "name": "safeguard",
+      "displayName": "Safeguard",
+      "description": "Seatbelts for knowledge work: guided permission hardening with safe defaults, plus a read-only audit of everything Claude can currently see and do.",
+      "author": { "name": "Sawyer Middeleer", "email": "saw.midd@gmail.com" },
+      "license": "MIT",
+      "repository": "https://github.com/Sawyer-Middeleer/dot-claude",
+      "homepage": "https://github.com/Sawyer-Middeleer/dot-claude",
+      "category": "security",
+      "tags": ["permissions", "security", "settings", "privacy"],
+      "source": "./plugins/safeguard"
+    },
+    {
+      "name": "second-brain",
+      "displayName": "Second Brain",
+      "description": "A plain-markdown knowledge base Claude sets up and maintains: capture durable learnings, keep notes organized and linked, process the inbox, run daily notes.",
+      "author": { "name": "Sawyer Middeleer", "email": "saw.midd@gmail.com" },
+      "license": "MIT",
+      "repository": "https://github.com/Sawyer-Middeleer/dot-claude",
+      "homepage": "https://github.com/Sawyer-Middeleer/dot-claude",
+      "category": "knowledge",
+      "tags": ["knowledge-management", "notes", "pkm", "obsidian", "markdown"],
+      "source": "./plugins/second-brain"
+    },
+    {
+      "name": "deep-research",
+      "displayName": "Deep Research",
+      "description": "Multi-source research with parallel analyst subagents: clarify scope, plan angles, analyze each source in depth, and synthesize with citations — filed into your knowledge base if you have one.",
+      "author": { "name": "Sawyer Middeleer", "email": "saw.midd@gmail.com" },
+      "license": "MIT",
+      "repository": "https://github.com/Sawyer-Middeleer/dot-claude",
+      "homepage": "https://github.com/Sawyer-Middeleer/dot-claude",
+      "category": "research",
+      "tags": ["research", "analysis", "synthesis", "subagents"],
+      "source": "./plugins/deep-research"
     }
   ]
 }

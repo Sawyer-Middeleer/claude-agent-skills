@@ -1,0 +1,11 @@
+{
+  "name": "compound",
+  "displayName": "Compound",
+  "version": "1.0.0",
+  "description": "Claude that gets better every week: corrects its own instructions after mistakes, turns twice-done tasks into reusable skills, and authors new skills to spec.",
+  "author": { "name": "Sawyer Middeleer", "email": "saw.midd@gmail.com" },
+  "license": "MIT",
+  "repository": "https://github.com/Sawyer-Middeleer/dot-claude",
+  "homepage": "https://github.com/Sawyer-Middeleer/dot-claude",
+  "keywords": ["skills", "self-improvement", "automation", "meta"]
+}
