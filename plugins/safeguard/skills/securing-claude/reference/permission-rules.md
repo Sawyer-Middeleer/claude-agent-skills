@@ -45,11 +45,14 @@ Rules **merge** across all files. Evaluation: **deny** → **ask** → **allow**
 |---|---|
 | `default` | Asks before anything risky; safe reads run |
 | `plan` | Read-only; proposes before touching anything |
-| `acceptEdits` | File edits auto-approved; commands still ask |
+| `acceptEdits` | File edits **and common filesystem commands** (`mkdir`, `touch`, `rm`, `mv`, `cp`, `sed`; PowerShell `Set-Content`, `Remove-Item`, etc.) auto-approved on in-scope paths; other commands still ask |
+| `dontAsk` | Only pre-approved rules run; nothing else prompts — for locked-down/unattended use |
 | `auto` | Most actions run with background safety checks |
-| `bypassPermissions` | Never asks — disposable sandboxes only |
+| `bypassPermissions` | Skips permission checks entirely (a few hard circuit-breakers like `rm -rf /` still stop it) — disposable sandboxes only |
 
-Cycle with `Shift+Tab` in the terminal; persist with `defaultMode`.
+`Shift+Tab` cycles `default → acceptEdits → plan` (and `auto`/`bypassPermissions` if enabled); persist a starting mode with `defaultMode`.
+
+Because `acceptEdits` auto-approves destructive filesystem commands, prefer `default` for any posture where unattended deletes/moves would be costly — reserve `acceptEdits` for throwaway or fully-backed-up working directories.
 
 ## Safe defaults (baseline for knowledge work)
 
@@ -57,22 +60,21 @@ Cycle with `Shift+Tab` in the terminal; persist with `defaultMode`.
 {
   "permissions": {
     "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(**/.env)",
+      "Read(**/.env*)",
       "Read(**/secrets/**)",
       "Read(**/*.pem)",
       "Read(**/credentials*)"
     ],
     "ask": [
       "Bash(git push:*)",
-      "Bash(rm -rf:*)"
+      "Bash(rm *)",
+      "PowerShell(Remove-Item *)"
     ]
   }
 }
 ```
 
-Adjust per the user's actual sensitive paths — these patterns cover convention, not their reality.
+Adjust per the user's actual sensitive paths — these patterns cover convention, not their reality. `**/` matches `.env`, `.env.local`, `apps/web/.env.production`, and other nested locations. When writing to **user-scope** settings (`~/.claude/settings.json`), anchor with the absolute form so rules aren't interpreted relative to one project — e.g. `Read(//**/.env*)`.
 
 ## Limits to state honestly
 

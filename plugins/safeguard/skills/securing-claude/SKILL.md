@@ -43,7 +43,7 @@ Build from the baseline in [reference/permission-rules.md](./reference/permissio
 - **deny** — secrets patterns always; user-named sensitive folders
 - **ask** — outward-facing and destructive actions per posture (e.g. `Bash(git push:*)`)
 - **allow** — only what the user's actual workflow needs to run unprompted
-- **defaultMode** — `default` for cautious, `acceptEdits` for balanced/hands-off
+- **defaultMode** — `default` for cautious and balanced (it already runs safe reads freely and only asks on risky actions); reserve `acceptEdits` for hands-off **and** only in a backed-up or throwaway working directory, since it auto-approves destructive filesystem commands (`rm`, `mv`, `sed`), not just edits (see [reference/permission-rules.md](./reference/permission-rules.md) § Permission modes)
 
 ### Step 4: Present, Then Write
 

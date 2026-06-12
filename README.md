@@ -10,14 +10,16 @@ Add the marketplace once:
 /plugin marketplace add Sawyer-Middeleer/dot-claude
 ```
 
-Then install any plugin:
+Then install any plugin (the `@dot-claude` suffix names the marketplace explicitly, so install works even if another marketplace ships a like-named plugin):
 
 ```
-/plugin install compound
-/plugin install safeguard
-/plugin install second-brain
-/plugin install deep-research
+/plugin install compound@dot-claude
+/plugin install safeguard@dot-claude
+/plugin install second-brain@dot-claude
+/plugin install deep-research@dot-claude
 ```
+
+Run `/reload-plugins` after installing if the new skills don't appear immediately. Plugins install at user scope (available in every project) by default.
 
 Plugin skills are invoked namespaced — `/compound:creating-skills`, `/second-brain:processing-inbox` — or Claude triggers them automatically when their conditions match.
 
@@ -71,7 +73,20 @@ A plain-markdown second brain that works with Obsidian or any editor. One setup 
 
 ## Migrating from v2
 
-v2 shipped a single `dot-claude` plugin; v3 splits it into the four plugins above. Uninstall the old plugin (`/plugin uninstall dot-claude`), then install what you want from the table. The `/deep-research` command is now `/deep-research:deep-research`, and `creating-skills` + `correcting-mistakes` live in `compound`.
+v2 shipped a single `dot-claude` plugin; v3 splits it into the four plugins above. Third-party marketplaces don't auto-update, so refresh the catalog first, then swap:
+
+```
+/plugin marketplace update dot-claude
+/plugin uninstall dot-claude@dot-claude
+/plugin install compound@dot-claude        # plus any others you want
+/reload-plugins
+```
+
+The `/deep-research` command is now `/deep-research:deep-research`, and `creating-skills` + `correcting-mistakes` live in `compound`.
+
+## Releasing changes
+
+Each plugin's `version` lives in its `plugin.json` only (the single source of truth — the marketplace entry intentionally omits it to avoid a split-brain pin). When you ship a change to a plugin, bump its `plugin.json` version (semver) so installed users pick it up. CI runs `claude plugin validate --strict` on the marketplace and every plugin.
 
 ## License
 
