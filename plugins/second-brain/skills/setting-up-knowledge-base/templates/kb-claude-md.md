@@ -7,7 +7,7 @@ This folder is a personal knowledge base. Read `conventions.md` before creating 
 1. **Conventions first.** `conventions.md` governs every write. If an instruction here conflicts with it, conventions win.
 2. **Durable or nothing.** Apply the "what belongs" filter before saving; adding nothing is fine when nothing is worth adding.
 3. **One concept per file**, in its canonical home. Link, don't duplicate.
-4. **Bump `modified:`** on every edit.
+4. **Bump `modified:`** when you change a note's content or frontmatter — not for a pure move or rename.
 5. **Never delete notes** without explicit confirmation — move or archive instead.
 
 ## Maintenance skills

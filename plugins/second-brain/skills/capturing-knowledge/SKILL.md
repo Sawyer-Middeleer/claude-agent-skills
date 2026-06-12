@@ -1,6 +1,6 @@
 ---
 name: capturing-knowledge
-description: Proactively captures durable learnings into the knowledge base when conditions warrant - a session produced a reusable insight, a framework crystallized, a constraint was discovered, a decision trail completed. Triggers on "save this", "remember this", "worth keeping", "file that under", or the natural pause at the end of substantive work where a real learning emerged. NOT for process chatter, debugging logs, or tactical one-offs.
+description: Captures durable learnings into a second-brain knowledge base (a folder with a conventions.md or KB-declaring CLAUDE.md) when conditions warrant - a reusable insight, a framework crystallizing, a constraint discovered, a decision trail completed. Triggers on "save this to my notes/knowledge base", "file that under", "worth keeping", or the natural pause at the end of substantive work where a real learning emerged. Only operates when a knowledge base exists; not for process chatter, debugging logs, or tactical one-offs.
 ---
 
 # Capturing Knowledge
@@ -26,6 +26,10 @@ Take initiative — don't wait for a command:
 - Small tactical decisions that won't recur
 
 When in doubt, leave it out. A run that saves nothing is fine.
+
+## Step 0: Confirm a knowledge base exists
+
+Before writing anything, locate the knowledge base: a `conventions.md`, or a `CLAUDE.md` that declares note conventions, at the working directory or an ancestor. **If none exists, do not write a note** — you are in an ordinary folder (often a code repo), not a knowledge base. Offer `/second-brain:setting-up-knowledge-base` and stop. This skill never scatters knowledge notes into arbitrary directories.
 
 ## The judgment bar
 
@@ -66,6 +70,10 @@ New note or appended section, same form:
 ```
 
 Apply the KB's frontmatter and link conventions (the organizing-notes skill covers both). Bump `modified:` when extending an existing note.
+
+## Relation to built-in memory
+
+Claude Code's built-in auto memory also responds to "remember this" / "save this," storing terse machine-local facts in `MEMORY.md`. That's a different store from this knowledge base, and splitting durable knowledge across both fragments it. Rule of thumb: a substantive learning (framework, decision trail, research finding) belongs **here**, as a real note in its canonical home; a one-line operating preference about how to work with this user can stay in built-in memory. When a capture has real content, prefer the knowledge base and say so.
 
 ## Report
 

@@ -1,6 +1,6 @@
 ---
 name: processing-inbox
-description: Processes and routes files from the knowledge base's inbox folder into their proper homes. Use when asked to check, clean, process, sort, or organize the inbox. Categorizes by content analysis, moves what's clear, asks about what isn't, never deletes.
+description: Processes and routes files from a second-brain knowledge base's inbox folder (e.g. _inbox/) into their proper homes per the base's conventions.md. Use when asked to check, clean, process, sort, or organize the knowledge-base inbox. Categorizes by content analysis, moves what's clear, asks about what isn't, never deletes.
 ---
 
 # Processing the Inbox
@@ -44,9 +44,9 @@ Needs your call (1):
 - random-thoughts.txt — couldn't categorize. Where should it go?
 ```
 
-### Step 5: Resolve
+### Step 5: Resolve and Hand Off
 
-Apply the user's answers; anything they defer stays in the inbox untouched.
+Apply the user's answers; anything they defer stays in the inbox untouched. Then offer the consistency pass: filing is a move (it does **not** bump `modified` or touch content), so newly-filed notes still need frontmatter, tags, and links applied — that's `/second-brain:organizing-notes`. Name the files you filed so it can run on just those.
 
 ## Rules
 

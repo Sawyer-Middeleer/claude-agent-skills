@@ -19,6 +19,7 @@ Any task done twice will be done a third time. The second occurrence is the sign
 - One-off work that won't recur (a migration, a single deliverable)
 - The task is already covered by an existing skill — improve that skill instead (see the correcting-mistakes skill)
 - The "procedure" is a single prompt with no steps, decisions, or gotchas — a skill adds nothing over just asking again
+- The procedure carries **secrets or one-account specifics** (API keys, tokens, internal hostnames, a particular customer's data) — either skip it, or codify only the generalized shape with those values as arguments; never bake a secret into a saved skill
 
 ## Workflow
 
@@ -35,22 +36,25 @@ Reconstruct what actually worked — not an idealized version:
 - Gotchas hit and the working resolution (state the correct approach directly; don't narrate the failure)
 - Validation used to confirm the output was right
 - Inputs that varied between the two occurrences — these become the skill's arguments
+- Any secrets or one-account specifics — redact these from the procedure now; they become arguments, never literals
 
-### Step 3: Author via creating-skills
+### Step 3: Decide Scope
 
-Invoke the **creating-skills** skill (`/compound:creating-skills`) with the extracted procedure as raw material. It handles naming, frontmatter, structure, and quality validation. Keep the scoping dialog short — most answers are already known from the session.
+Pick where the skill lives before authoring, so the file is written in the right place:
 
-### Step 4: Save to the Right Scope
-
-- Task is specific to this project → `.claude/skills/<name>/`
-- Task recurs across the user's projects → `~/.claude/skills/<name>/`
+- Task specific to this project → `.claude/skills/<name>/`
+- Task that recurs across the user's projects → `~/.claude/skills/<name>/`
 
 When unsure, default to the project; promotion to user scope is easy later.
 
+### Step 4: Author via creating-skills
+
+Invoke the **creating-skills** skill (`/compound:creating-skills`) with the extracted procedure as raw material **and the Step 3 scope/save-location**. It handles naming, frontmatter, structure, and quality validation. Keep the scoping dialog short — most answers (procedure, arguments, save location) are already known from the session.
+
 ### Step 5: Verify and Hand Off
 
-1. Confirm the skill loads: it should appear in the skills list for the next message
-2. Tell the user the invocation (`/<name>`) and what arguments it takes
+1. Tell the user the invocation (`/<name>`) and what arguments it takes
+2. **A brand-new skill may not appear until the session reloads** — if it doesn't show in the skills list on the next message, tell the user to restart the session (or run `/reload-plugins` for a plugin skill). Don't report failure on the strength of it not showing immediately.
 3. Suggest running it on the next real occurrence rather than a synthetic test — and fixing anything it gets wrong via the correcting-mistakes skill
 
 ## Principles

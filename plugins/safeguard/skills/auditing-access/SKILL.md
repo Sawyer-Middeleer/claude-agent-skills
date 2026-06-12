@@ -1,6 +1,6 @@
 ---
 name: auditing-access
-description: Read-only audit of what Claude Code can currently see and do - settings layers, permission rules, connected MCP servers, and sensitive files not covered by deny rules. Use when the user asks "what can you access", "audit my setup", "is anything exposed", or before starting work with confidential material. Makes no changes.
+description: Read-only audit of what Claude Code can currently see and do - settings layers, permission rules and modes, connected MCP servers, hooks, additionalDirectories, installed plugins, and sensitive files not covered by deny rules. Use when the user asks "what can you access", "audit my setup", "is anything exposed", or before starting work with confidential material. Makes no changes; never echoes secret or credential values.
 ---
 
 # Auditing Claude Code Access
@@ -17,7 +17,10 @@ Read whichever exist (absence is a finding, not an error):
 - `.claude/settings.json` — shared project settings
 - `.claude/settings.local.json` — personal project overrides
 - Managed policy: `/Library/Application Support/ClaudeCode/` (macOS), `/etc/claude-code/` (Linux), `C:\Program Files\ClaudeCode\` (Windows)
-- `.mcp.json` — project-shared MCP servers; note user-scope servers visible in `/mcp`
+- `.mcp.json` — project-shared MCP servers; note user-scope servers visible in `/mcp`. **Redaction:** MCP entries often carry API keys/tokens in their `env` blocks — note that a server is configured and what it connects to, but never echo credential values into the report or your reasoning.
+- **Hooks** — `hooks` blocks in any settings file, and `hooks/hooks.json` in installed plugins: these run commands automatically and are part of the attack surface; list what fires on which event.
+- **`additionalDirectories`** — extra paths granted beyond the project root; each widens what Claude can reach.
+- **Installed plugins** — what's active (`/plugin`); each can ship skills, hooks, and MCP servers that carry their own access.
 
 ### Step 2: Resolve the Effective Permission State
 
@@ -52,7 +55,8 @@ For each hit, check whether an existing deny rule covers its path. Uncovered hit
 - ./.env            ← not covered
 - client-data/*.pem ← not covered
 
-**Connected services (MCP):** ...
+**Connected services (MCP):** ... (configured-only; no credentials shown)
+**Hooks / additionalDirectories / plugins:** ...
 
 **Recommendations:** (ranked, one line each)
 ```
@@ -61,6 +65,6 @@ End with one line: fixes available via `/safeguard:securing-claude`.
 
 ## Rules
 
-- Never open or print the contents of suspected secrets — paths only
+- Never open or print the contents of suspected secrets, or credential values from MCP `env` blocks — paths and connection facts only
 - Never edit anything, even obvious gaps — report and recommend
-- If no settings files exist at all, say plainly: every permission decision is currently interactive, nothing is protected by rule
+- If no settings files exist at all, state it accurately: there are no permission *rules*, so every decision falls back to the session's default mode — safe reads and read-only commands still run without prompting; risky actions prompt interactively. Nothing is protected by an enforced rule.

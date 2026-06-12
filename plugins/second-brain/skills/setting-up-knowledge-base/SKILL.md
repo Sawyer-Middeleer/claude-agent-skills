@@ -31,18 +31,23 @@ Create the minimal structure — sparse is fine, folders earn their existence:
 └── hubs/                 # entity pages (people, orgs, projects) — create when first needed
 ```
 
-1. Copy both templates from `${CLAUDE_PLUGIN_ROOT}/skills/setting-up-knowledge-base/templates/`
-2. Fill placeholders: link style from Step 1, folder map matching what was created
-3. Trim conventions the user won't use (e.g. drop hubs section if they declined entity tracking)
+1. Copy both templates from `${CLAUDE_PLUGIN_ROOT}/skills/setting-up-knowledge-base/templates/` into the KB root (`conventions.md` and `CLAUDE.md`)
+2. **Resolve every `<!-- SETUP: ... -->` marker** — in `conventions.md` § Links, delete the Internal line that doesn't match the editor chosen in Step 1, then delete the marker. Grep the copied files for `SETUP:` afterward; none should remain.
+3. Fill the folder map to match what was actually created
+4. Trim conventions the user won't use (e.g. drop the hubs section if they declined entity tracking)
 
 ### Step 2b: Existing Folder
 
-Survey before touching anything:
+Survey before touching anything, and never overwrite an existing authority.
 
-1. Map the current structure (folders, naming patterns, frontmatter if any)
-2. Infer the implicit conventions and write them into `conventions.md` — codify what exists rather than imposing the default
-3. Propose (don't execute) any reorganization as a separate follow-up; adoption ≠ reorganization
-4. Add `CLAUDE.md` pointing at the conventions
+1. **Map the structure** — list folders; sample 5–10 notes to read off the real patterns: where frontmatter sits and which keys recur, how files are named, how links are written (`[[wikilink]]` vs markdown), whether daily notes exist and where.
+2. **Conventions authority:**
+   - If a conventions document already exists (`conventions.md`, a `_meta/` doc, etc.), **make it the authority** — the sibling skills read it. Don't generate a competing one. Fill only genuine gaps, and only with the user's OK.
+   - If none exists, write `conventions.md` codifying *what the survey found* — not the default template wholesale. Carry over the existing frontmatter keys, link style, and folder names verbatim so the skills match the vault instead of fighting it.
+3. **CLAUDE.md:**
+   - If one exists, **append a short "Knowledge base" pointer section** (read it first, merge — never clobber other project instructions).
+   - If none exists, add one pointing at the conventions.
+4. **Reorganization is a separate, opt-in step** — propose it, don't execute it. Adoption ≠ reorganization.
 
 ### Step 3: Hand Off
 

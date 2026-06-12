@@ -78,6 +78,19 @@ Adjust per the user's actual sensitive paths — these patterns cover convention
 
 ## Limits to state honestly
 
-- Deny rules govern Claude's tool calls. A subprocess (a Python script Claude runs) can still open files directly — use OS sandboxing for hard isolation.
+- Deny rules govern Claude's tool calls. A subprocess (a Python script Claude runs) can still open files directly — use sandboxing for hard isolation.
 - Symlinks: deny matches if either the link or its target matches; allow requires both.
-- `/permissions` in-session shows every active rule and which file it came from.
+- `/permissions` in-session shows every active rule and which file it came from — treat it as ground truth for what's currently enforced.
+
+## Sandboxing (for the subprocess gap)
+
+Permission rules constrain Claude's own tools, not programs those tools launch. When that gap matters, sandboxing is the answer the rules can't provide:
+
+- **Filesystem/network sandbox** — Claude Code can run tool calls inside a sandbox that confines filesystem writes and network egress at the OS level, so even a spawned subprocess is contained. Enable it in settings (`sandbox`) for cautious/balanced postures handling sensitive material.
+- **Container/VM** — for untrusted work or `bypassPermissions`, run the whole session in a disposable container so the blast radius is the container, not the host.
+
+Check the current sandboxing options at https://code.claude.com/docs/en/settings before recommending exact keys — this surface evolves.
+
+## Hooks vs. Bash rules for destructive commands
+
+`Bash(...)` patterns are matched syntactically and are easy to slip past — `Bash(rm *)` misses `rm -fr`, `rm -r -f`, a `rm` inside a compound command, and PowerShell entirely. For reliable blocking of destructive commands, a **PreToolUse hook** that inspects the command and exits non-zero (exit 2) to block is the ecosystem-standard, harder-to-evade approach. Offer it as an optional add-on when the user wants real destructive-command guarding rather than prompt-on-match; pattern-based ask rules remain a fine lightweight default.

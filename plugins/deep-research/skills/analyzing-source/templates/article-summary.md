@@ -86,7 +86,7 @@ tags: [research-topic, relevant-tags]
 
 ## Relevance to Research Focus
 
-**Primary Research Angle(s) Addressed**: [Which specific research angle(s) from the plan does this inform?]
+**Primary Research Angle(s) Addressed**: [How this source informs the research focus you were assigned]
 
 **Specific Contributions to Research**:
 

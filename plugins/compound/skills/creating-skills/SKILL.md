@@ -35,6 +35,10 @@ Use this skill when creating or improving Claude skills to ensure they follow of
    - Only the user, via slash command (`disable-model-invocation: true`)
    - Only Claude, never shown in the menu (`user-invocable: false`)
 
+4. **Save location**: where does the skill live? (single select; skip if the caller already specified it — e.g. codifying-tasks passes this in)
+   - This project only → `.claude/skills/<name>/`
+   - All my projects → `~/.claude/skills/<name>/`
+
 Add 1–2 contextual questions only if essential to clarify workflow steps, inputs/outputs, or materials to include.
 
 ## Phase 2: Design & Planning
@@ -55,18 +59,21 @@ Add 1–2 contextual questions only if essential to clarify workflow steps, inpu
    - [ ] Identify sections: workflow, examples, templates, validation
    - [ ] Note which parts need high/medium/low freedom
 
-4. **Generate architecture diagram**
-   - [ ] ASCII diagram of the full skill structure per [reference/architecture-diagrams.md](./reference/architecture-diagrams.md)
+4. **Architecture diagram (optional)** — for a multi-file skill with reference docs, templates, or branching flows, an ASCII diagram per [reference/architecture-diagrams.md](./reference/architecture-diagrams.md) helps validate structure. Skip it for a simple single-file skill; don't spend tokens diagramming something trivial.
 
 5. **Present plan to user**
-   - Proposed name, description, structure outline, and the diagram
+   - Proposed name, description, structure outline (and the diagram if you drew one)
    - Adjust based on feedback before writing
 
 ## Phase 3: Create Content
 
+Write into the save location chosen in Phase 1 (`<location>/skills/<name>/SKILL.md`).
+
 1. **Write SKILL.md** — valid frontmatter, only non-obvious information, checklists for complex workflows
 2. **Add supporting files** if needed — `templates/`, `reference/`, `scripts/`, one level deep, SKILL.md stays under 500 lines
 3. **Implement feedback mechanisms** identified in Phase 1 — validation checkpoints, quality loops, error handling
+
+A brand-new skill may not load until the session restarts (or `/reload-plugins` for a plugin skill); tell the user rather than treating a not-yet-listed skill as broken.
 
 ## Frontmatter Reference
 
@@ -170,6 +177,15 @@ See [reference/scripts-and-code.md](./reference/scripts-and-code.md) for compreh
 - [ ] Scripts have explicit error handling
 - [ ] File paths use forward slashes
 - [ ] Dependencies documented
+
+## Phase 5: Verify the Skill Triggers Correctly
+
+A skill that never fires (or fires on the wrong prompts) is a silent failure. Before calling it done, sanity-check the `description` against realistic prompts:
+
+- **Should-trigger:** name 2–3 prompts a user would actually type for this task. Does the description's wording and keywords make Claude reach for the skill? If a plausible request wouldn't surface it, the description is too narrow or missing keywords.
+- **Should-NOT-trigger:** name 1–2 adjacent prompts this skill should ignore (e.g. a generic question, a neighboring skill's job). Does the description risk over-firing or shadowing another skill? Tighten the scope if so.
+
+For a non-trivial skill, run one real invocation (or, in a forked subagent, dry-run the workflow against a realistic input) and fix what breaks via the correcting-mistakes skill before shipping. Deploying an unexercised skill is deploying untested instructions.
 
 ## Reference Files
 

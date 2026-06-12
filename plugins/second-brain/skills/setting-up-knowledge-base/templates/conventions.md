@@ -54,7 +54,7 @@ Introduce a new tag only when no existing tag fits AND the concept will recur AN
 
 ## Links
 
-<!-- LINK_STYLE: keep one of the two lines below -->
+<!-- SETUP: delete whichever Internal line does not match the chosen editor; delete this comment. -->
 - Internal: `[[note-name]]` wikilinks; `[[note-name|display text]]` to control prose
 - Internal: standard markdown `[display](relative/path.md)`
 
@@ -63,3 +63,16 @@ Link the first mention of any entity that has a hub. Create a hub when an entity
 ## One concept per file
 
 A framework, a how-to, and a project decision are three notes, cross-linked — not one. Each concept has exactly one canonical home; everything else links to it.
+
+## Off-limits
+
+Skills never edit, bump, reorganize, or tag these. Add your own as needed:
+
+- `.obsidian/`, `.git/`, and other tool/config directories
+- `.trash/` and any archive folder
+- `templates/` — template files contain placeholders (e.g. Templater syntax) that break if frontmatter is injected
+- Any path you mark here explicitly
+
+## When `modified` changes
+
+`modified` tracks **content changes only**. Editing a note's body or frontmatter bumps it to today. Moving, renaming, or relocating a file does **not** bump it — the content didn't change.

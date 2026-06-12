@@ -9,12 +9,12 @@ Three consistency passes — frontmatter, tags, links — applied whenever a not
 
 ## Frontmatter
 
-On every note touched (created, edited, moved — moves count):
+On every note whose **content or frontmatter** you change:
 
 1. **Frontmatter exists** — block starts `---` on line 1; add if missing
 2. **`type:` matches the note's role** — per the conventions enum
 3. **Keys are canonical** — migrate drifted forms (`date_created` → `created`, `last_updated` → `modified`, etc.)
-4. **`modified:` bumped to today** — always
+4. **`modified:` bumped to today** — when you changed content or frontmatter. A pure move or rename does **not** bump `modified` (the content is unchanged); don't rewrite timestamps across files you're only relocating.
 
 Rules: dates absolute `YYYY-MM-DD`; `tags:` always a YAML list; `snake_case` keys; don't invent metadata you can't derive.
 
@@ -46,7 +46,8 @@ Bias conservative: a missed marginal link is cheaper than a wrong one.
 
 Asked to "clean up" or "normalize" the whole base:
 
-1. Inventory first — report drifted frontmatter, orphan tags, unlinked entity mentions as counts before changing anything
-2. Confirm scope with the user, then fix mechanically
-3. Exclude anything the conventions or CLAUDE.md mark as off-limits
-4. Summarize: files touched, by which pass, anything skipped and why
+1. **Safety pre-flight** — confirm the base is under version control with a clean working tree (`git status`), or take a backup, before any bulk write. A batch frontmatter pass is hard to undo by hand; a clean checkpoint makes it one command.
+2. **Exclude off-limits paths** — always skip `.obsidian/`, `.git/`, `.trash/`, archive folders, and `templates/` (template placeholders break when frontmatter is injected), plus anything the conventions' Off-limits section names. These defaults hold even if the conventions file is silent.
+3. **Inventory first** — report drifted frontmatter, orphan tags, unlinked entity mentions as counts before changing anything
+4. **Confirm scope** with the user, then fix mechanically
+5. **Summarize** — files touched, by which pass, what was excluded and why

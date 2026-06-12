@@ -1,6 +1,6 @@
 ---
 name: managing-daily-notes
-description: Manages daily notes in a markdown knowledge base - finding, creating, reading, and updating them, including task carryover between days. Trigger on "today's note", "daily note", "create daily note", "what's on my plate", "mark that done", "carry over my tasks".
+description: Manages daily notes in a second-brain markdown knowledge base (a folder with a conventions.md or KB-declaring CLAUDE.md) - finding, creating, reading, and updating them, including task carryover with provenance. Trigger on "my daily note", "create today's daily note", "carry over my tasks", "close out the day" when working in such a knowledge base.
 ---
 
 # Managing Daily Notes
@@ -17,7 +17,7 @@ Daily notes live at `_daily/YYYY/MM/YYYY-MM-DD.md` (or wherever the knowledge ba
 
 1. Determine the target date; create the `YYYY/MM/` folders if missing
 2. Structure: frontmatter (`type: daily`, `created`/`modified` = the date), a `## Tasks` section, a `## Notes` section — or the KB's own daily template if one exists in its templates folder
-3. **Carry over tasks:** find the most recent prior note, copy every incomplete task (`- [ ]`) into the new note's Tasks section, preserving order
+3. **Carry over tasks:** find the most recent prior note, copy every incomplete task (`- [ ]`) into the new note's Tasks section, preserving order. **Stamp each carried task with provenance** the first time it moves forward — append ` (since YYYY-MM-DD)` using the date of the note you're carrying from (preserve an existing `(since …)` rather than overwriting). This makes staleness computable later. **If more than ~15 tasks would carry over**, don't blindly copy them all — surface the count and ask the user whether to carry, drop, or defer the backlog; an unbounded carry compounds daily into noise.
 
 ## Updating
 
@@ -31,6 +31,6 @@ Daily notes live at `_daily/YYYY/MM/YYYY-MM-DD.md` (or wherever the knowledge ba
 
 ## End-of-day pass (when asked to "close out the day")
 
-1. Mark finished tasks; flag stale ones (carried >5 days) and ask whether to drop them
+1. Mark finished tasks; flag stale ones — using each task's `(since YYYY-MM-DD)` stamp, anything carried more than ~5 days — and ask whether to drop, defer, or keep them
 2. Summarize the day's work in the Notes section, linking the relevant notes
 3. Anything durable that surfaced today → offer `/second-brain:capturing-knowledge` rather than letting it die in the daily note
