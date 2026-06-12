@@ -1,0 +1,11 @@
+{
+  "name": "second-brain",
+  "displayName": "Second Brain",
+  "version": "1.0.0",
+  "description": "A plain-markdown knowledge base Claude sets up and maintains: capture durable learnings, keep notes organized and linked, process the inbox, run daily notes.",
+  "author": { "name": "Sawyer Middeleer", "email": "saw.midd@gmail.com" },
+  "license": "MIT",
+  "repository": "https://github.com/Sawyer-Middeleer/dot-claude",
+  "homepage": "https://github.com/Sawyer-Middeleer/dot-claude",
+  "keywords": ["knowledge-management", "notes", "pkm", "obsidian", "markdown"]
+}

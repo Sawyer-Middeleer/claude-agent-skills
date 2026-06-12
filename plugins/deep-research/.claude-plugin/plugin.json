@@ -1,0 +1,11 @@
+{
+  "name": "deep-research",
+  "displayName": "Deep Research",
+  "version": "1.0.0",
+  "description": "Multi-source research with parallel analyst subagents: clarify scope, plan angles, analyze each source in depth, and synthesize with citations — filed into your knowledge base if you have one.",
+  "author": { "name": "Sawyer Middeleer", "email": "saw.midd@gmail.com" },
+  "license": "MIT",
+  "repository": "https://github.com/Sawyer-Middeleer/dot-claude",
+  "homepage": "https://github.com/Sawyer-Middeleer/dot-claude",
+  "keywords": ["research", "analysis", "synthesis", "subagents"]
+}

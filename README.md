@@ -1,88 +1,78 @@
-# Dot Claude
+# dot-claude
 
-A unified plugin for Claude Code with actually useful skills, agents, and commands - focused on research, analysis, and skill creation.
+Actually useful Claude Code plugins for **knowledge work** — research, notes, ops, and analysis — not hardcore software engineering. Four plugins, install only what you want.
 
-## Installation
+## Install
 
-Add the marketplace to your Claude Code instance:
+Add the marketplace once:
 
-```claude
+```
 /plugin marketplace add Sawyer-Middeleer/dot-claude
 ```
 
-Then install the plugin:
+Then install any plugin:
 
-```claude
-/plugin install dot-claude
+```
+/plugin install compound
+/plugin install safeguard
+/plugin install second-brain
+/plugin install deep-research
 ```
 
-That's it! You now have access to all commands, skills, and agents.
+Plugin skills are invoked namespaced — `/compound:creating-skills`, `/second-brain:processing-inbox` — or Claude triggers them automatically when their conditions match.
 
-## What's Included
+## The plugins
 
-### Commands
+### compound — Claude that gets better every week
 
-#### `/deep-research`
-Conducts comprehensive research on complex topics with technical rigor, synthesizing multiple sources including academic papers, technical documentation, industry reports, and practitioner insights.
+The thesis: do a task once by hand, codify it the second time, and fix the instructions every time they fail. Three skills that close the loop:
 
-**Features:**
-- Structured clarification dialog for research parameters
-- Automated source analysis via research-analyst subagent
-- Produces comprehensive documentation with proper citations
+| Skill | What it does |
+|---|---|
+| `correcting-mistakes` | After an error gets resolved, finds the instruction file that caused it and applies a succinct fix — so the same mistake never happens twice |
+| `codifying-tasks` | Notices when you're doing something for the second time and offers to turn the proven procedure into a reusable skill |
+| `creating-skills` | Authors high-quality skills to spec — guided scoping, current frontmatter options, progressive disclosure, quality validation |
 
-**Usage:**
-```claude
-/deep-research [your topic]
-```
+### safeguard — seatbelts for knowledge work
 
-**Output:**
-- `plan.md` - Research strategy and angles
-- `synthesis.md` - Thematic analysis with citations
-- `summaries/` - Individual source analyses
+Permission rules are enforced by the harness — stronger than anything you put in a prompt.
 
-### Skills
+| Skill | What it does |
+|---|---|
+| `securing-claude` | Short scoping dialog → hardened `settings.json` (deny rules for secrets, asks for risky actions) that you approve before it's written |
+| `auditing-access` | Read-only report of what Claude can currently see and do: settings layers, effective rules, connected MCP servers, and sensitive files no deny rule covers |
 
-#### `creating-skills`
-Creates high-quality Claude skills following official best practices, with quality-of-life improvements. Includes guided scoping dialog, progressive disclosure patterns, and quality validation.
+### second-brain — a knowledge base Claude maintains
 
-#### `analyzing-source`
-Conducts in-depth analysis of specific sources, producing comprehensive summaries for research synthesis. Creates detailed, information-dense summaries suitable for integration into larger research projects.
+A plain-markdown second brain that works with Obsidian or any editor. One setup skill, four maintenance skills:
 
-**Note:** This skill is primarily used by the `research-analyst` agent within the `/deep-research` command workflow.
+| Skill | What it does |
+|---|---|
+| `setting-up-knowledge-base` | Creates the structure, a `conventions.md` (the authority all other skills read), and a `CLAUDE.md` so every session knows the rules — or adopts an existing notes folder |
+| `capturing-knowledge` | Proactively saves durable learnings to their canonical home — with an aggressive filter for what *doesn't* belong |
+| `organizing-notes` | Consistency passes: frontmatter on every note, controlled tags, links between related notes and entities |
+| `processing-inbox` | Routes unsorted captures to their homes; moves what's clear, asks about what isn't, never deletes |
+| `managing-daily-notes` | Daily logs with task carryover and an end-of-day close-out |
 
-### Agents
+### deep-research — multi-source research, filed properly
 
-#### `research-analyst`
-Expert research analyst that investigates specific sources as part of larger research projects. Performs deep analysis and creates comprehensive summaries.
+| Component | What it does |
+|---|---|
+| `deep-research` skill | Clarify scope → plan angles → validate sources → spawn parallel analysts → synthesize by theme with citations. Deliverables are files, not a chat reply — and if you have a second-brain knowledge base, outputs follow its conventions |
+| `research-analyst` agent | Haiku-powered analyst spawned one-per-source for parallel deep reading |
+| `analyzing-source` skill | The analysis framework each analyst follows |
 
-**Technical details:**
-- Model: Haiku (optimized for speed and cost)
-- Skills: `analyzing-source`
-- Permission Mode: default
+## Philosophy
 
-**Note:** This agent is automatically spawned by the `/deep-research` command for parallel source analysis.
+- **Modular** — small composable skills, one concept each, install only the plugins you want
+- **Compounding** — mistakes become corrections, repeated tasks become skills, learnings land in a knowledge base
+- **Settings over prompts** — anything that must hold is a rule the harness enforces
+- **Files over chat** — work products land somewhere durable and findable
 
-## How It Works Together
+## Migrating from v2
 
-The plugin provides an integrated research system:
+v2 shipped a single `dot-claude` plugin; v3 splits it into the four plugins above. Uninstall the old plugin (`/plugin uninstall dot-claude`), then install what you want from the table. The `/deep-research` command is now `/deep-research:deep-research`, and `creating-skills` + `correcting-mistakes` live in `compound`.
 
-1. **`/deep-research` command** - User-facing interface that orchestrates the research workflow
-2. **`research-analyst` agent** - Spawned in parallel to analyze individual sources
-3. **`analyzing-source` skill** - Provides the analysis framework used by research-analyst
-4. **`creating-skills` skill** - Meta-skill for creating new Claude Code skills
+## License
 
-All components work together seamlessly as part of a single plugin.
-
-## Example Workflow
-
-```claude
-/deep-research distributed systems scaling patterns
-
-# Claude will:
-# 1. Ask clarifying questions about research goals and preferences
-# 2. Create a research plan with defined angles
-# 3. Spawn multiple research-analyst agents in parallel
-# 4. Each agent uses analyzing-source to create detailed summaries
-# 5. Synthesize findings into thematic analysis
-# 6. Deliver comprehensive research documentation
-```
+MIT
